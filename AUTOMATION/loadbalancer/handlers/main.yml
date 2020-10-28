@@ -1,0 +1,11 @@
+---
+# handlers file for loadbalancer
+- name: RESTART LB
+  service:
+    name: "haproxy"
+    state: restarted
+  register: r
+
+- name: STATUS OF HAPROXY SERVICE
+  debug:
+    var: r   

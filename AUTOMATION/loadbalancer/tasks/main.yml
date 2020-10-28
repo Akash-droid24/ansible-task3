@@ -1,0 +1,28 @@
+---
+# tasks file for loadbalancer
+
+- name: Installing HAPROXY Software
+  package: 
+    name: "haproxy"
+    state: present
+  register: p
+
+- name: Installation status of HAPROXY software
+  debug:
+    var: p
+
+- name: copy my conf file of loadbalancer
+  template:
+    src: "haproxy.cfg"
+    dest: "/etc/haproxy/haproxy.cfg"
+  notify: RESTART LB
+
+- name: Starting LoadBalancer Services
+  service:
+    name: "haproxy"
+    state: started
+  register: y
+
+- name: Status of LoadBalancer Service
+  debug:
+    var: y  

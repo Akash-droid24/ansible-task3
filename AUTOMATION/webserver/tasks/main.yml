@@ -1,0 +1,30 @@
+---
+# tasks file for webserver
+- name: Installing HTTPD
+  package:
+    name: "httpd"
+    state: present
+  register: h
+
+- name: HTTPD STATUS
+  debug:
+    var: h
+
+- name: Copy content to webpage
+  copy:
+    content: "Welcome Connections ! WEBSITE FROM {{ ansible_hostname }}" 
+    dest: /var/www/html/index.html
+
+- name: STARTING HTTPD SERVICES
+  service: 
+    name: "httpd"
+    state: started
+  register: s
+
+- name: STATUS OF HTTPD SERVICE
+  debug:
+    var: s
+
+
+
+    
